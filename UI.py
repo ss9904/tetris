@@ -13,7 +13,7 @@ class Window(tk.Frame):
     ゲームウィンドウのクラス
     """
 
-    def __init__(self, master=None):
+    def __init__(self, master=None): # tk.Frameを好みに改造して初期化
         tk.Frame.__init__(self, master)
         
         self.master.geometry("600x800")
@@ -27,7 +27,7 @@ class Window(tk.Frame):
 
 
 class GameField(tk.Canvas):
-    """テトリミノが積みあがる画面"""
+    """ミノが積みあがる画面"""
 
     def __init__(self):
 
