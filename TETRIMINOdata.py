@@ -73,3 +73,5 @@ O = (
     ],
     "yellow"
     )
+
+TETRIMINOS = [T, S, Z, I, J, L, O]
