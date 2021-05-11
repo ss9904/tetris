@@ -6,7 +6,7 @@ from DATA import *
 class MINO(tk.Canvas):
     """テトリミノ"""
 
-    def __init__(self, mino_name, coordinate:Tuple):
+    def __init__(self, mino_name, coordinate:Tuple=(4,0)):
         canvas_width = BLOCK_SIZE*3
         canvas_height = BLOCK_SIZE*4
 

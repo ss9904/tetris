@@ -134,13 +134,12 @@ class NextField(tk.Canvas):
 if __name__ == "__main__":
     gameWindow = Window()
 
-    mino = MINO(J, (0,0))
+    mino = MINO(J)
 
     print(mino.shape)
     mino.rotate(1)
     print(mino.shape)
 
-    mino.set_coordinates(5,6)
     gameWindow.draw_mino(mino)
 
     gameWindow.mainloop()
