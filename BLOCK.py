@@ -1,6 +1,6 @@
 import tkinter as tk
 from typing import List, Tuple
-from TETRIMINOdata import *
+from DATA import *
 
 
 class MINO(tk.Canvas):

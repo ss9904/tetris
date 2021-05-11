@@ -1,5 +1,5 @@
 import tkinter as tk
-from TETRIMINOdata import *
+from DATA import *
 from BLOCK import MINO
 from random import randint
 
