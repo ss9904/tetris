@@ -55,7 +55,7 @@ class GameField(tk.Canvas):
                     outline="white", width=1
                 )
 
-    def overwrite_color(self, x, y, color):
+    def overwrite_colorlist(self, x, y, color):
         """リストの更新"""
         self.color[y][x] = color
 
@@ -124,6 +124,11 @@ class NextField(tk.Canvas):
                 )
 
 
+class EventHandler:
+    def __init__(self):
+        pass
+
+#    def left_key_event(self):
 
 
 
