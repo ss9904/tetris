@@ -137,7 +137,7 @@ if __name__ == "__main__":
     mino = MINO(J)
 
     print(mino.shape)
-    mino.rotate(1)
+    mino.rotate_left()
     print(mino.shape)
 
     gameWindow.draw_mino(mino)

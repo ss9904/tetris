@@ -44,18 +44,29 @@ class MINO(tk.Canvas):
     def get_color(self) -> str:
         return self.color
 
-    def get_rotate(self) -> int:
-        return self.rotate
-
     def set_coordinates(self, x, y):
         self.coordinates = (x, y)
 
-    def rotate(self, direction):
-        if direction == 1: # 左回転
-            new_shape = [list(k) for k in zip(*self.shape)]
-            new_shape = new_shape[::-1]
-        elif direction == -1: # 右回転
-            new_shape = [list(k) for k in zip(*self.shape[::-1])]
-        else:
-            pass
+    def rotate_left(self):
+        new_shape = [list(k) for k in zip(*self.shape)]
+        new_shape = new_shape[::-1]
         self.shape = new_shape
+
+    def rotate_right(self):
+        new_shape = [list(k) for k in zip(*self.shape[::-1])]
+        self.shape = new_shape
+
+    def move_left(self):
+        coord = self.get_coordinates()
+        coord[1] -= 1
+        self.set_coordinates(*coord)
+
+    def move_right(self):
+        coord = self.get_coordinates()
+        coord[1] += 1
+        self.set_coordinates(*coord)
+
+    def move_down(self):
+        coord = self.get_coordinates()
+        coord[0] += 1
+        self.set_coordinates(*coord)
