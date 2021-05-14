@@ -1,15 +1,16 @@
 import tkinter as tk
-from typing import List, Tuple
+from typing import List
 from DATA import *
 
 
 class MINO(tk.Canvas):
     """テトリミノ"""
 
-    def __init__(self, mino_name, coordinate:Tuple=(4,0)):
+    def __init__(self, mino_name, coordinate:list=[4,0]):
         canvas_width = BLOCK_SIZE*3
         canvas_height = BLOCK_SIZE*4
 
+        self.name = str(mino_name)
         self.shape = mino_name[0]
         self.color = mino_name[1]
         self.coordinates = coordinate
@@ -35,7 +36,10 @@ class MINO(tk.Canvas):
                     outline="white", width=1
                 )
 
-    def get_coordinates(self) -> Tuple:
+    def get_name(self):
+        return self.name
+
+    def get_coordinates(self) -> list:
         return self.coordinates
 
     def get_shape(self) -> List[List[int]]:
@@ -45,7 +49,7 @@ class MINO(tk.Canvas):
         return self.color
 
     def set_coordinates(self, x, y):
-        self.coordinates = (x, y)
+        self.coordinates = [x, y]
 
     def rotate_left(self):
         new_shape = [list(k) for k in zip(*self.shape)]
@@ -58,15 +62,21 @@ class MINO(tk.Canvas):
 
     def move_left(self):
         coord = self.get_coordinates()
-        coord[1] -= 1
-        self.set_coordinates(*coord)
+        self.set_coordinates(x=coord[0]-1, y=coord[1])
 
     def move_right(self):
         coord = self.get_coordinates()
-        coord[1] += 1
+        coord[0] += 1
         self.set_coordinates(*coord)
 
     def move_down(self):
         coord = self.get_coordinates()
-        coord[0] += 1
+        coord[1] += 1
+        self.set_coordinates(*coord)
+
+    def move(self, direction):
+        coord = [
+            i+j for (i,j)
+            in zip(self.get_coordinates(), MOVEMENT[direction])
+        ]
         self.set_coordinates(*coord)
