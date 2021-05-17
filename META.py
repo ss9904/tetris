@@ -18,12 +18,11 @@ class GameManager:
 
     def make_new_mino(self):
         self.mino = MINO(mino_name=TETRIMINOS[randint(0,6)])
-        print(f"{self.mino.get_name()} was made.")
         self.field.draw_mino(mino=self.mino)
 
     def can_move(self, direction) -> bool:
-        mino_verify = self.mino
-        mino_verify.move(direction)
+        mino_verify = self.mino.make_copy() # 検証用のミノを生成
+        mino_verify.move(direction) # 指定方向に移動
         shape_varify = mino_verify.get_shape()
         coord_varify = mino_verify.get_coordinates()
 
@@ -39,12 +38,15 @@ class GameManager:
 
                     # フィールドからはみ出す場合
                     if (x_verify < 0) or (x_verify > FIELD_WIDTH):
+                        print("MINO cannnot move in this direction")
                         return False
                     elif (y_verify < 0) or (y_verify > FIELD_HEIGHT):
+                        print("MINO cannnot move in this direction")
                         return False
 
                     # すでにブロックがある場合
                     elif self.color[y_verify][x_verify] != "gray70":
+                        print("MINO cannnot move in this direction")
                         return False
 
                     # 何でもない場合、次の座標の検証に進む
@@ -54,29 +56,28 @@ class GameManager:
 
     def move_left(self):
         if self.can_move(LEFT) is True:
-            self.mino.move_left()
-        else:
+            self.mino.move(LEFT)
+            print("moved left")
+            self.field.display(self.color)
+            self.field.draw_mino(mino=self.mino)
+        elif self.can_move(LEFT) is False:
             pass
-        self.field.draw_mino(mino=self.mino)
-        print("moved left")
-        print(self.mino.get_coordinates())
 
     def move_right(self):
         if self.can_move(RIGHT) is True:
             self.mino.move(RIGHT)
+            self.field.display(self.color)
+            self.field.draw_mino(mino=self.mino,)
         else:
             pass
-        self.field.draw_mino(mino=self.mino,)
-        print(self.mino.get_coordinates())
 
     def move_down(self):
         if self.can_move(DOWN) is True:
             self.mino.move(DOWN)
+            self.field.display(self.color)
+            self.field.draw_mino(mino=self.mino)
         else:
             pass
-        self.field.draw_mino(mino=self.mino)
-        print(self.mino.get_coordinates())
-
 
 
 class EventHandller:
