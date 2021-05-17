@@ -21,8 +21,8 @@ class GameManager:
         self.field.draw_mino(mino=self.mino)
 
     def can_move(self, direction) -> bool:
-        mino_verify = self.mino.make_copy() # 検証用のミノを生成
-        mino_verify.move(direction) # 指定方向に移動
+        mino_verify = self.mino.make_copy()
+        mino_verify.move(direction)
         shape_varify = mino_verify.get_shape()
         coord_varify = mino_verify.get_coordinates()
 
@@ -37,10 +37,10 @@ class GameManager:
                     y_verify = y+coord_varify[1]
 
                     # フィールドからはみ出す場合
-                    if (x_verify < 0) or (x_verify > FIELD_WIDTH):
+                    if (x_verify < 0) or (x_verify >= FIELD_WIDTH):
                         print("MINO cannnot move in this direction")
                         return False
-                    elif (y_verify < 0) or (y_verify > FIELD_HEIGHT):
+                    elif (y_verify < 0) or (y_verify >= FIELD_HEIGHT):
                         print("MINO cannnot move in this direction")
                         return False
 
@@ -57,17 +57,16 @@ class GameManager:
     def move_left(self):
         if self.can_move(LEFT) is True:
             self.mino.move(LEFT)
-            print("moved left")
             self.field.display(self.color)
             self.field.draw_mino(mino=self.mino)
-        elif self.can_move(LEFT) is False:
+        else:
             pass
 
     def move_right(self):
         if self.can_move(RIGHT) is True:
             self.mino.move(RIGHT)
             self.field.display(self.color)
-            self.field.draw_mino(mino=self.mino,)
+            self.field.draw_mino(mino=self.mino)
         else:
             pass
 
