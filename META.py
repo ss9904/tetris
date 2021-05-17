@@ -9,7 +9,7 @@ class GameManager:
     def __init__(self):
         self.window = Window()
         self.field = self.window.gamefield
-        self.color = [["gray70"]*FIELD_WIDTH]*FIELD_HEIGHT
+        self.color = [["gray70"]*FIELD_WIDTH for i in range(FIELD_HEIGHT)]
         self.next = self.window.nextfield
         self.mino = None
 
