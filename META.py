@@ -14,14 +14,15 @@ class GameManager:
         self.mino = None
 
     def set_colorlist(self, x, y, color):
-        self.color[y][x] = color
+        print(self.color[y][x], x, y, type(self.color[y][x]))
+        self.color[y][x] = str(color)
 
     def make_new_mino(self):
         self.mino = MINO(mino_name=TETRIMINOS[randint(0,6)])
         self.field.draw_mino(mino=self.mino)
 
     def can_move(self, direction) -> bool:
-        mino_verify = self.mino.make_copy()
+        mino_verify = self.mino.copy()
         mino_verify.move(direction)
         shape_varify = mino_verify.get_shape()
         coord_varify = mino_verify.get_coordinates()
@@ -76,7 +77,32 @@ class GameManager:
             self.field.display(self.color)
             self.field.draw_mino(mino=self.mino)
         else:
-            pass
+            self.fix_mino()
+            self.delete_line()
+            self.make_new_mino()
+
+    def fix_mino(self):
+        shape = self.mino.get_shape()
+        coord = self.mino.get_coordinates()
+        color = self.mino.get_color()
+
+        for j in range(len(shape)):
+            for i in range(len(shape[j])):
+                if shape[j][i] == 0:
+                    continue
+                else:
+                    self.set_colorlist(x=coord[0]+i, y=coord[1]+j, color=color)
+
+
+        del self.mino
+
+    def delete_line(self):
+        for j in range(FIELD_HEIGHT):
+            if self.color[j].count("gray70") == 0:
+                del self.color[j]
+                self.color.insert(0, ["gray70"]*FIELD_WIDTH)
+            else:
+                pass
 
 
 class EventHandller:

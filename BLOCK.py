@@ -55,5 +55,5 @@ class MINO():
         ]
         self.set_coordinates(*coord)
 
-    def make_copy(self):
+    def copy(self):
         return MINO(self.name, self.coordinates)

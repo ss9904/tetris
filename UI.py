@@ -87,12 +87,12 @@ class GameField(tk.Canvas):
         shape = mino.get_shape()
         color = mino.get_color()
 
-        for j in range(len(mino.shape)):
-            for i in range(len(mino.shape[j])):
+        for j in range(len(shape)):
+            for i in range(len(shape[j])):
                 if shape[j][i] == 0:
                     continue
                 else:
-                    self.update_color(i+coord[0], j+coord[1], color)
+                    self.update_color(coord[0]+i, coord[1]+j, color)
 
 
 class NextField(tk.Canvas):
