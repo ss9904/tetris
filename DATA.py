@@ -3,13 +3,13 @@ BLOCK_SIZE = 25 #(px)
 FIELD_WIDTH = 10 #(blocks)
 FIELD_HEIGHT = 24 #(blocks)
 MOVEMENT = [
-    [-1, 0],
+    [1, 0],
     [0, 1],
-    [1, 0]
+    [-1, 0]
 ]
-LEFT = 0
+RIGHT = 0
 DOWN = 1
-RIGHT = 2
+LEFT = 2
 
 # TETRIMINO shape data
 T = (
