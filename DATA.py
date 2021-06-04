@@ -1,7 +1,9 @@
 # constants(unit)
 BLOCK_SIZE = 25 #(px)
-FIELD_WIDTH = 10 #(blocks)
-FIELD_HEIGHT = 24 #(blocks)
+FIELD_WIDTH = 5 #(blocks)
+FIELD_HEIGHT = 10 #(blocks)
+CENTER = int(FIELD_WIDTH/2)
+
 MOVEMENT = [
     [1, 0],
     [0, 1],

@@ -178,15 +178,20 @@ class EventHandller:
         self.game.make_new_mino()
 
         """key入力の受付開始"""
+        """
         self.master.bind("<Left>", self.left_key_event)
         self.master.bind("<Right>", self.right_key_event)
         self.master.bind("<Down>", self.down_key_event)
+        """
         self.master.bind("<a>", self.left_key_event)
         self.master.bind("<d>", self.right_key_event)
         self.master.bind("<s>", self.down_key_event)
         self.master.bind("<Button-1>", self.left_click_event)
         self.master.bind("<Button-3>", self.right_click_event)
+        self.timer()
 
+    def timer(self):
+        self.master.after(1000, self.time_event)
 
     def left_key_event(self, event):
         self.game.move_left()
@@ -203,6 +208,9 @@ class EventHandller:
     def right_click_event(self, event):
         self.game.rotate_right()
 
+    def time_event(self):
+        self.game.move_down()
+        self.timer()
 
 
 

@@ -1,11 +1,12 @@
 from DATA import *
 from typing import List
 import numpy as np
+from DATA import CENTER
 
 class MINO():
     """テトリミノ"""
 
-    def __init__(self, mino_name, coordinate:list=[4,0]):
+    def __init__(self, mino_name, coordinate:list=[CENTER,0]):
         self.name = mino_name
         self.shape = np.array(mino_name[0])
         self.color = mino_name[1]
