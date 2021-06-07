@@ -211,23 +211,3 @@ class EventHandller:
     def time_event(self):
         self.game.move_down()
         self.timer()
-
-
-
-
-if __name__ == "__main__":
-    """
-    gameWindow = Window()
-
-    mino = MINO(J)
-
-    print(mino.shape)
-    mino.rotate_left()
-    print(mino.shape)
-
-    gameWindow.draw_mino(mino)
-    """
-    root = tk.Tk()
-    app = GameManager()
-    manage = EventHandller(root, app)
-    app.window.mainloop()
