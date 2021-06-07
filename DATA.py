@@ -2,7 +2,7 @@
 BLOCK_SIZE = 25 #(px)
 FIELD_WIDTH = 10 #(blocks)
 FIELD_HEIGHT = 20 #(blocks)
-CENTER = int(FIELD_WIDTH/2)
+CENTER = int(FIELD_WIDTH/2)-1
 
 MOVEMENT = [
     [1, 0],
@@ -19,7 +19,7 @@ T = (
         [0,1,0],
         [1,1,1],
     ],
-    "medium purple"
+    1
     )
 
 S = (
@@ -27,7 +27,7 @@ S = (
         [0,1,1],
         [1,1,0],
     ],
-    "green yellow"
+    2
     )
 
 Z = (
@@ -35,7 +35,7 @@ Z = (
         [1,1,0],
         [0,1,1],
     ],
-    "red"
+    3
     )
 
 I = (
@@ -45,7 +45,7 @@ I = (
         [1],
         [1]
     ],
-    "cyan"
+    4
     )
 
 J = (
@@ -54,7 +54,7 @@ J = (
         [0,1],
         [1,1]
     ],
-    "blue"
+    5
     )
 
 L = (
@@ -63,7 +63,7 @@ L = (
         [1,0],
         [1,1],
     ],
-    "orange"
+    6
     )
 
 O = (
@@ -71,7 +71,17 @@ O = (
         [1,1],
         [1,1]
     ],
-    "yellow"
+    7
     )
 
 TETRIMINOS = [T, S, Z, I, J, L, O]
+COLORS = [
+    "gray70",
+    "medium purple",
+    "green yellow",
+    "red",
+    "cyan",
+    "blue",
+    "orange",
+    "yellow"
+]

@@ -1,21 +1,21 @@
 from DATA import *
 from typing import List
-import numpy as np
+import cupy as cp
 from DATA import CENTER
 
 class MINO():
     """テトリミノ"""
 
-    def __init__(self, mino_name, coordinate:list=[CENTER,0]):
-        self.name = mino_name
-        self.shape = np.array(mino_name[0])
-        self.color = mino_name[1]
+    def __init__(self, mino_type, coordinate:list=[CENTER,0]):
+        self.name = mino_type
+        self.shape = cp.array(mino_type[0])
+        self.color = mino_type[1]
         self.coordinates = coordinate
 
     def get_shape(self) -> List[List[int]]:
         return self.shape
 
-    def get_color(self) -> str:
+    def get_color(self) -> int:
         return self.color
 
     def get_coordinates(self) -> list:
@@ -60,7 +60,7 @@ class MINO():
         self.set_coordinates(*coord)
 
     def rotate(self, direction):
-        self.__set_shape(np.rot90(self.shape, direction-1))
+        self.__set_shape(cp.rot90(self.shape, direction-1))
 
     def copy(self):
         return MINO((self.shape, self.color), self.coordinates)

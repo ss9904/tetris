@@ -3,14 +3,14 @@ from DATA import *
 import tkinter as tk
 from UI import Window
 from random import randint
-import numpy as np
+import cupy as cp
 
 
 class GameManager:
     def __init__(self):
         self.window = Window()
         self.field = self.window.gamefield
-        self.color = np.full((FIELD_HEIGHT, FIELD_WIDTH), "gray70", dtype='U13')
+        self.color = cp.full((FIELD_HEIGHT, FIELD_WIDTH), 0)
         self.next = self.window.nextfield
         self.mino = None
 
@@ -18,7 +18,7 @@ class GameManager:
         self.color[y][x] = color
 
     def make_new_mino(self):
-        self.mino = MINO(mino_name=TETRIMINOS[randint(0,6)])
+        self.mino = MINO(mino_type=TETRIMINOS[randint(0,6)])
         self.field.draw_mino(mino=self.mino)
 
     def can_move(self, direction) -> bool:
@@ -46,7 +46,7 @@ class GameManager:
                         return False
 
                     # すでにブロックがある場合
-                    elif self.color[y_verify][x_verify] != "gray70":
+                    elif self.color[y_verify][x_verify] != 0:
                         print("MINO cannnot move in this direction")
                         return False
 
@@ -144,9 +144,9 @@ class GameManager:
     def delete_line(self):
         for j in range(FIELD_HEIGHT):
             if "gray70" not in self.color[j]:
-                temp = np.delete(self.color, j, 0) # j行目を削除
-                topline = np.array(["gray70"]*FIELD_WIDTH, dtype='U13') # 挿入する空白行
-                self.color = np.insert(temp, 0, topline, axis=0) #空白行を挿入
+                temp = cp.delete(self.color, j, 0) # j行目を削除
+                topline = cp.array(["gray70"]*FIELD_WIDTH, dtype='U13') # 挿入する空白行
+                self.color = cp.insert(temp, 0, topline, axis=0) #空白行を挿入
             else:
                 pass
 

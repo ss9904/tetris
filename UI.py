@@ -1,7 +1,6 @@
 import tkinter as tk
 from DATA import *
 from BLOCK import *
-from random import randint
 
 
 class Window(tk.Frame):
@@ -62,7 +61,7 @@ class GameField(tk.Canvas):
                 y1 = (y+1)*BLOCK_SIZE
 
                 self.create_rectangle(
-                    x0, y0, x1, y1, fill=colorlist[y][x],
+                    x0, y0, x1, y1, fill=COLORS[colorlist[y][x]],
                     outline="white", width=1
                 )
 
@@ -72,6 +71,7 @@ class GameField(tk.Canvas):
         y0 = y*BLOCK_SIZE
         x1 = (x+1)*BLOCK_SIZE
         y1 = (y+1)*BLOCK_SIZE
+        color = COLORS[color]
 
         self.create_rectangle(
             x0, y0, x1, y1, fill=color,
@@ -85,7 +85,7 @@ class GameField(tk.Canvas):
         """
         coord = mino.get_coordinates()
         shape = mino.get_shape()
-        color = mino.get_color()
+        color = COLORS[mino.get_color()]
 
         for j in range(len(shape)):
             for i in range(len(shape[j])):
