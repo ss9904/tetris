@@ -1,3 +1,4 @@
+from typing import Tuple
 from BLOCK import MINO
 from DATA import *
 import tkinter as tk
@@ -21,21 +22,83 @@ class GameManager:
         self.mino = MINO(mino_name=TETRIMINOS[randint(0,6)])
         self.field.draw_mino(mino=self.mino)
 
-    def can_move(self, direction) -> bool:
-        mino_verify = self.mino.copy()
-        mino_verify.move(direction)
-        shape_varify = mino_verify.get_shape()
-        coord_varify = mino_verify.get_coordinates()
+    def can_move_left(self) -> bool:
+        shape = self.mino.get_shape()
+        coord = self.mino.get_coordinates()
 
-        for y in range(len(shape_varify)):
-            for x in range(len(shape_varify[y])):
+        for y in range(len(shape)):
+            for x in range(len(shape[y])):
 
                 # ミノが存在する場所の判定
-                if shape_varify[y][x] == 0:
+                if shape[y][x] == 0:
                     continue
-                elif shape_varify[y][x] == 1:
-                    x_verify = x+coord_varify[0]
-                    y_verify = y+coord_varify[1]
+                elif shape[y][x] == 1:
+                    x_verify = x+coord[0]-1
+                    y_verify = y+coord[1]
+
+                    # フィールドからはみ出す場合
+                    if (x_verify < 0) or (x_verify >= FIELD_WIDTH):
+                        print("MINO cannnot move in this direction")
+                        return False
+                    elif (y_verify < 0) or (y_verify >= FIELD_HEIGHT):
+                        print("MINO cannnot move in this direction")
+                        return False
+
+                    # すでにブロックがある場合
+                    elif self.color[y_verify][x_verify] != "gray70":
+                        print("MINO cannnot move in this direction")
+                        return False
+
+                    # 何でもない場合、次の座標の検証に進む
+                    else:
+                        continue
+        return True
+
+    def can_move_right(self) -> bool:
+        shape = self.mino.get_shape()
+        coord = self.mino.get_coordinates()
+
+        for y in range(len(shape)):
+            for x in range(len(shape[y])):
+
+                # ミノが存在する場所の判定
+                if shape[y][x] == 0:
+                    continue
+                elif shape[y][x] == 1:
+                    x_verify = x+coord[0]+1
+                    y_verify = y+coord[1]
+
+                    # フィールドからはみ出す場合
+                    if (x_verify < 0) or (x_verify >= FIELD_WIDTH):
+                        print("MINO cannnot move in this direction")
+                        return False
+                    elif (y_verify < 0) or (y_verify >= FIELD_HEIGHT):
+                        print("MINO cannnot move in this direction")
+                        return False
+
+                    # すでにブロックがある場合
+                    elif self.color[y_verify][x_verify] != "gray70":
+                        print("MINO cannnot move in this direction")
+                        return False
+
+                    # 何でもない場合、次の座標の検証に進む
+                    else:
+                        continue
+        return True
+
+    def can_move_down(self) -> bool :
+        shape = self.mino.get_shape()
+        coord = self.mino.get_coordinates()
+
+        for y in range(len(shape)):
+            for x in range(len(shape[y])):
+
+                # ミノが存在する場所の判定
+                if shape[y][x] == 0:
+                    continue
+                elif shape[y][x] == 1:
+                    x_verify = x+coord[0]
+                    y_verify = y+coord[1]+1
 
                     # フィールドからはみ出す場合
                     if (x_verify < 0) or (x_verify >= FIELD_WIDTH):
@@ -96,7 +159,7 @@ class GameManager:
         return True, move_status
 
     def move_left(self):
-        if self.can_move(LEFT) is True:
+        if self.can_move_left() is True:
             self.mino.move(LEFT)
             self.field.display(self.color)
             self.field.draw_mino(mino=self.mino)
@@ -104,7 +167,7 @@ class GameManager:
             pass
 
     def move_right(self):
-        if self.can_move(RIGHT) is True:
+        if self.can_move_right() is True:
             self.mino.move(RIGHT)
             self.field.display(self.color)
             self.field.draw_mino(mino=self.mino)
@@ -112,7 +175,7 @@ class GameManager:
             pass
 
     def move_down(self):
-        if self.can_move(DOWN) is True:
+        if self.can_move_down() is True:
             self.mino.move(DOWN)
             self.field.display(self.color)
             self.field.draw_mino(mino=self.mino)
@@ -188,10 +251,14 @@ class EventHandller:
         self.master.bind("<s>", self.down_key_event)
         self.master.bind("<Button-1>", self.left_click_event)
         self.master.bind("<Button-3>", self.right_click_event)
+        self.timer_id = None
         self.timer()
 
     def timer(self):
-        self.master.after(1000, self.time_event)
+        if self.timer_id == None:
+            self.timer_id = self.master.after(1000, self.time_event)
+        else:
+            self.master.after_cancel(self.timer_id)
 
     def left_key_event(self, event):
         self.game.move_left()
@@ -211,3 +278,11 @@ class EventHandller:
     def time_event(self):
         self.game.move_down()
         self.timer()
+
+    def end(self):
+        self.timer()
+        self.master.unbind("<a>")
+        self.master.unbind("<d>")
+        self.master.unbind("<s>")
+        self.master.unbind("<Button-1>")
+        self.master.unbind("<Button-3>")
